@@ -1,0 +1,12 @@
+{% load static %}
+
+{% for post in posts|dictsortreversed:'id' %}
+  <hr>
+  <article>
+    {% include "includes/post_detail.html" %}      
+    <p>
+      {{ post.text|truncatewords:10 }}
+    </p>
+    <a href="{% url 'blog:post_detail' post.id %}">Читать полный текст</a>
+  </article>
+{% endfor %}

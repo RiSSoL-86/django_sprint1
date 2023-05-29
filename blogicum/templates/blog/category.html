@@ -2,7 +2,8 @@
 {% load static %}
 {% block title %} {{ category }} {% endblock %}
 {% block content %}
-  <div class="container py-5">
-    <h1>Публикации в категории - {{ category }}</h1>   
-  </div>
+  <h1>Публикации в категории - {{ category }}</h1>
+  {% if posts %}
+    {% include "includes/posts_list.html" %}
+  {% endif %} 
 {% endblock %}

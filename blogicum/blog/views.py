@@ -1,5 +1,7 @@
 from django.shortcuts import render
 
+from django.http import Http404
+
 posts = [
     {
         'id': 0,
@@ -52,14 +54,17 @@ def index(request):
 
 def post_detail(request, id):
     """Отображение полного описания выбранной записи"""
-    context = {'post': posts[int(id)]}
+    post = [post for post in posts if post['id'] == id][0]
+    if not post:
+        raise Http404('Ошибка 404 :-(')
+    context = {'post': post}
     return render(request, 'blog/detail.html', context)
 
 
 def category_posts(request, category_slug):
     """Отображение публикаций категории"""
-    context = [post for post in posts if post['category'] == category_slug]
-    if not context:
-        context = {'category': category_slug}
-        return render(request, 'blog/category.html', context)
-    return render(request, 'blog/category.html', context[0])
+    sorted_posts = [post for post in posts if post['category']
+                    == category_slug]
+    context = {'category': category_slug,
+               'posts': sorted_posts}
+    return render(request, 'blog/category.html', context)
