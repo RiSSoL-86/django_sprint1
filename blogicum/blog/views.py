@@ -54,10 +54,10 @@ def index(request):
 
 def post_detail(request, id):
     """Отображение полного описания выбранной записи"""
-    post = [post for post in posts if post['id'] == id][0]
+    post = [post for post in posts if post['id'] == id]
     if not post:
-        raise Http404('Ошибка 404 :-(')
-    context = {'post': post}
+        raise Http404('Вы указали неверный id')
+    context = {'post': post[0]}
     return render(request, 'blog/detail.html', context)
 
 

@@ -2,8 +2,20 @@
 {% load static %}
 {% block title %} {{ post.location }}. {{ post.date }} {% endblock %}
 {% block content %}
-  {% include "includes/post_detail.html" %}
-  <p>
-    {{ post.text }}
-  </p>               
+  <article>
+    <ul>
+      <li>
+        Место: {{ post.location }}              
+      </li>
+      <li>
+        Дата: {{ post.date }} 
+      </li>
+      <li>
+        Категория: <a href="{% url 'blog:category_posts' post.category %}">{{ post.category }} </a>
+      </li>
+    </ul>     
+    <p>
+      {{ post.text }}
+    </p>
+  </article>
 {% endblock %}
